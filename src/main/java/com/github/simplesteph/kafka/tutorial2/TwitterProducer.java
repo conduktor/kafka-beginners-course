@@ -25,6 +25,7 @@ public class TwitterProducer {
 
     Logger logger = LoggerFactory.getLogger(TwitterProducer.class.getName());
 
+    // these are invalid credentials
     String consumerKey = "WsAeTgDSBnIwBZWw6KaijPN9b";
     String consumerSecret = "BfCqpAJiAQRGRl8PAo964CNEG6eck6lV6kGndZypel4eDLF3B2";
     String token = "2932095118-XtnODAvArwq61KA8ZnirEgBBchd66mWwQIwpblO";
