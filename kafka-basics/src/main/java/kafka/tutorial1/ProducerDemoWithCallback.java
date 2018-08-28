@@ -1,4 +1,4 @@
-package com.github.simplesteph.kafka.tutorial1;
+package kafka.tutorial1;
 
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -6,13 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
-import java.util.concurrent.ExecutionException;
 
-public class ProducerDemoKeys {
+public class ProducerDemoWithCallback {
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) {
 
-        final Logger logger = LoggerFactory.getLogger(ProducerDemoKeys.class);
+        final Logger logger = LoggerFactory.getLogger(ProducerDemoWithCallback.class);
 
         String bootstrapServers = "127.0.0.1:9092";
 
@@ -28,26 +27,8 @@ public class ProducerDemoKeys {
 
         for (int i=0; i<10; i++ ) {
             // create a producer record
-
-            String topic = "first_topic";
-            String value = "hello world " + Integer.toString(i);
-            String key = "id_" + Integer.toString(i);
-
             ProducerRecord<String, String> record =
-                    new ProducerRecord<String, String>(topic, key, value);
-
-            logger.info("Key: " + key); // log the key
-            // id_0 is going to partition 1
-            // id_1 partition 0
-            // id_2 partition 2
-            // id_3 partition 0
-            // id_4 partition 2
-            // id_5 partition 2
-            // id_6 partition 0
-            // id_7 partition 2
-            // id_8 partition 1
-            // id_9 partition 2
-
+                    new ProducerRecord<String, String>("first_topic", "hello world " + Integer.toString(i));
 
             // send data - asynchronous
             producer.send(record, new Callback() {
@@ -64,7 +45,7 @@ public class ProducerDemoKeys {
                         logger.error("Error while producing", e);
                     }
                 }
-            }).get(); // block the .send() to make it synchronous - don't do this in production!
+            });
         }
 
         // flush data
