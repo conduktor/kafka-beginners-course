@@ -1,5 +1,6 @@
 package com.github.simplesteph.kafka.tutorial3;
 
+import com.google.gson.JsonParser;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -19,6 +20,7 @@ import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.mapper.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,6 +77,16 @@ public class ElasticSearchConsumer {
 
     }
 
+    private static JsonParser jsonParser = new JsonParser();
+
+    private static String extractIdFromTweet(String tweetJson){
+        // gson library
+        return jsonParser.parse(tweetJson)
+                .getAsJsonObject()
+                .get("id_str")
+                .getAsString();
+    }
+
     public static void main(String[] args) throws IOException {
         Logger logger = LoggerFactory.getLogger(ElasticSearchConsumer.class.getName());
         RestHighLevelClient client = createClient();
@@ -86,15 +98,23 @@ public class ElasticSearchConsumer {
                     consumer.poll(Duration.ofMillis(100)); // new in Kafka 2.0.0
 
             for (ConsumerRecord<String, String> record : records){
+
+                // 2 strategies
+                // kafka generic ID
+                // String id = record.topic() + "_" + record.partition() + "_" + record.offset();
+
+                // twitter feed specific id
+                String id = extractIdFromTweet(record.value());
+
                 // where we insert data into ElasticSearch
                 IndexRequest indexRequest = new IndexRequest(
                         "twitter",
-                        "tweets"
+                        "tweets",
+                        id // this is to make our consumer idempotent
                 ).source(record.value(), XContentType.JSON);
 
                 IndexResponse indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
-                String id = indexResponse.getId();
-                logger.info(id);
+                logger.info(indexResponse.getId());
                 try {
                     Thread.sleep(1000); // introduce a small delay
                 } catch (InterruptedException e) {
