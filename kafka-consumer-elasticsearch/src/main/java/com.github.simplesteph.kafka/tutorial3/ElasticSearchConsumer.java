@@ -36,11 +36,11 @@ public class ElasticSearchConsumer {
     public static RestHighLevelClient createClient(){
 
         // replace with your own credentials
-        String hostname = "kafka-course-6549851627.eu-west-1.bonsaisearch.net";
-        String username = "zw9y0aqjmj";
-        String password = "q39lrrt7uf";
+        String hostname = ""; // localhost or bonsai url
+        String username = ""; // needed only for bonsai
+        String password = ""; // needed only for bonsai
 
-        // don't do if you run a local ES
+        // remove credentialsProvider if you run a local ES
         final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY,
                 new UsernamePasswordCredentials(username, password));
