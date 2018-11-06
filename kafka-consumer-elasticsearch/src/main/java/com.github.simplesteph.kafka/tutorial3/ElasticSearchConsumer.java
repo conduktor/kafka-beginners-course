@@ -35,12 +35,24 @@ public class ElasticSearchConsumer {
 
     public static RestHighLevelClient createClient(){
 
+        //////////////////////////
+        /////////// IF YOU USE LOCAL ELASTICSEARCH
+        //////////////////////////
+
+        //  String hostname = "localhost";
+        //  RestClientBuilder builder = RestClient.builder(new HttpHost(hostname,9200,"http"));
+
+
+        //////////////////////////
+        /////////// IF YOU USE BONSAI / HOSTED ELASTICSEARCH
+        //////////////////////////
+
         // replace with your own credentials
         String hostname = ""; // localhost or bonsai url
         String username = ""; // needed only for bonsai
         String password = ""; // needed only for bonsai
 
-        // remove credentialsProvider if you run a local ES
+        // credentials provider help supply username and password
         final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY,
                 new UsernamePasswordCredentials(username, password));
