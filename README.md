@@ -1,8 +1,8 @@
 # Kafka for Beginners
 
-This is a companion repository for my [Kafka for Beginners](http://bit.ly/kafka-beginners-github)
+This is a companion repository for my [Kafka for Beginners](https://links.datacumulus.com/apache-kafka-coupon)
 
-[![course logo](https://udemy-images.udemy.com/course/480x270/1075642_b6d2_6.jpg)](http://bit.ly/kafka-beginners-github)
+[![course logo](https://courses.datacumulus.com/assets/images/kafka-for-beginners-logo-courses-614x346.png)](https://links.datacumulus.com/apache-kafka-coupon)
 
 # Content
 - Basics of Kafka
