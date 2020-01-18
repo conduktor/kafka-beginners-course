@@ -129,11 +129,9 @@ public class ElasticSearchConsumer {
                     String id = extractIdFromTweet(record.value());
 
                     // where we insert data into ElasticSearch
-                    IndexRequest indexRequest = new IndexRequest(
-                            "twitter",
-                            "tweets",
-                            id // this is to make our consumer idempotent
-                    ).source(record.value(), XContentType.JSON);
+                    IndexRequest indexRequest = new IndexRequest("twitter")
+                       .source(value, XContentType.JSON)
+                       .id(id); // this is to make our consumer idempotent
 
                     bulkRequest.add(indexRequest); // we add to our bulk request (takes no time)
                 } catch (NullPointerException e){
