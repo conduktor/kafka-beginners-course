@@ -129,11 +129,27 @@ public class ElasticSearchConsumer {
                     String id = extractIdFromTweet(record.value());
 
                     // where we insert data into ElasticSearch
+
+                    /**
+                     * Uncomment this code if you are using elastic search version < 7.0
                     IndexRequest indexRequest = new IndexRequest(
-                            "twitter",
-                            "tweets",
-                            id // this is to make our consumer idempotent
+                       "twitter",
+                       "tweets",
+                       id // this is to make our consumer idempotent
                     ).source(record.value(), XContentType.JSON);
+                    */
+                    
+                    /** Added for ElasticSearch >= v7.0
+                     * The API to add data into ElasticSearch has slightly changes
+                     * and therefore we must use this new method. 
+                     * the idea is still the same
+                     * read more here: https://www.elastic.co/guide/en/elasticsearch/reference/current/removal-of-types.html
+                     * uncomment the code above if you use ElasticSearch 6.x or less
+                    */
+
+                    IndexRequest indexRequest = new IndexRequest("tweets")
+                       .source(record.value(), XContentType.JSON)
+                       .id(id); // this is to make our consumer idempotent
 
                     bulkRequest.add(indexRequest); // we add to our bulk request (takes no time)
                 } catch (NullPointerException e){
