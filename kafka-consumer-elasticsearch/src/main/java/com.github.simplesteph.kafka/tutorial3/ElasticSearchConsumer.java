@@ -127,10 +127,18 @@ public class ElasticSearchConsumer {
                 // twitter feed specific id
                 try {
                     String id = extractIdFromTweet(record.value());
+                    /**
+                     * Uncomment this code if you are using elastic search version < 7.0
+                    IndexRequest indexRequest = new IndexRequest(
+                       "twitter",
+                       "tweets",
+                       id // this is to make our consumer idempotent
+                    ).source(record.value(), XContentType.JSON);
+                    */
 
                     // where we insert data into ElasticSearch
-                    IndexRequest indexRequest = new IndexRequest("twitter")
-                       .source(value, XContentType.JSON)
+                    IndexRequest indexRequest = new IndexRequest("tweets")
+                       .source(record.value(), XContentType.JSON)
                        .id(id); // this is to make our consumer idempotent
 
                     bulkRequest.add(indexRequest); // we add to our bulk request (takes no time)
