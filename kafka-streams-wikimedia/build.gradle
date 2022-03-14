@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+group 'io.conduktor.demos'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.apache.kafka/kafka-streams
+    implementation 'org.apache.kafka:kafka-streams:3.1.0'
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation 'org.slf4j:slf4j-api:1.7.35'
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    implementation 'org.slf4j:slf4j-simple:1.7.35'
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
+}
+
+test {
+    useJUnitPlatform()
+}
