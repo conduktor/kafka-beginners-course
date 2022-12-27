@@ -20,13 +20,13 @@ public class ConsumerDemoWithShutdown {
     public static void main(String[] args) {
         log.info("I am a Kafka Consumer");
 
-        String boostrapServers = "127.0.0.1:9092";
+        String bootstrapServers = "127.0.0.1:9092";
         String groupId = "my-third-application";
         String topic = "demo_java";
 
         // create consumer configs
         Properties properties = new Properties();
-        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, boostrapServers);
+        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, groupId);
