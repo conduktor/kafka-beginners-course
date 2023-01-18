@@ -1,6 +1,5 @@
 package io.conduktor.demos.kafka;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -18,24 +17,33 @@ public class ConsumerDemoWithShutdown {
     private static final Logger log = LoggerFactory.getLogger(ConsumerDemoWithShutdown.class.getSimpleName());
 
     public static void main(String[] args) {
-        log.info("I am a Kafka Consumer");
+        log.info("I am a Kafka Consumer!");
 
-        String bootstrapServers = "127.0.0.1:9092";
-        String groupId = "my-third-application";
+        String groupId = "my-java-application";
         String topic = "demo_java";
 
-        // create consumer configs
+        // create Producer Properties
         Properties properties = new Properties();
-        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, groupId);
-        properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
-        // create consumer
+        // connect to Localhost
+//        properties.setProperty("bootstrap.servers", "127.0.0.1:9092");
+
+        // connect to Conduktor Playground
+        properties.setProperty("bootstrap.servers", "cluster.playground.cdkt.io:9092");
+        properties.setProperty("security.protocol", "SASL_SSL");
+        properties.setProperty("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"your-username\" password=\"your-password\";");
+        properties.setProperty("sasl.mechanism", "PLAIN");
+
+        // create consumer configs
+        properties.setProperty("key.deserializer", StringDeserializer.class.getName());
+        properties.setProperty("value.deserializer", StringDeserializer.class.getName());
+        properties.setProperty("group.id", groupId);
+        properties.setProperty("auto.offset.reset", "earliest");
+
+        // create a consumer
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
 
-        // get a reference to the current thread
+        // get a reference to the main thread
         final Thread mainThread = Thread.currentThread();
 
         // adding the shutdown hook
@@ -53,13 +61,13 @@ public class ConsumerDemoWithShutdown {
             }
         });
 
+
+
         try {
-
-            // subscribe consumer to our topic(s)
+            // subscribe to a topic
             consumer.subscribe(Arrays.asList(topic));
-
-            // poll for new data
-            while(true) {
+            // poll for data
+            while (true) {
 
                 ConsumerRecords<String, String> records =
                         consumer.poll(Duration.ofMillis(1000));
@@ -70,15 +78,16 @@ public class ConsumerDemoWithShutdown {
                 }
 
             }
+
         } catch (WakeupException e) {
-            log.info("Wake up exception!");
-            // we ignore this as this is an expected exception when closing a consumer
-        } catch (Exception e){
-            log.error("Unexpected exception");
+            log.info("Consumer is starting to shut down");
+        } catch (Exception e) {
+            log.error("Unexpected exception in the consumer", e);
         } finally {
-            consumer.close(); // this will also commit the offsets if need be
-            log.info("The consumer is now gracefully closed");
+            consumer.close(); // close the consumer, this will also commit offsets
+            log.info("The consumer is now gracefully shut down");
         }
+
 
     }
 }
