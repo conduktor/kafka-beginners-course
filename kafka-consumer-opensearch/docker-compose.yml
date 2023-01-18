@@ -4,8 +4,8 @@ services:
     image: opensearchproject/opensearch:1.2.4
     environment:
       discovery.type: single-node
-      plugins.security.disabled: true # disable https and logins
-      compatibility.override_main_response_version: true
+      plugins.security.disabled: "true" # disable https and logins
+      compatibility.override_main_response_version: "true"
     ports:
       - 9200:9200
       - 9600:9600 # required for Performance Analyzer

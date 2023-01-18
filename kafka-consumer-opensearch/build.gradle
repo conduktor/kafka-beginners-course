@@ -21,7 +21,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-simple:1.7.36'
 
     // https://search.maven.org/artifact/org.opensearch.client/opensearch-rest-high-level-client/1.2.4/jar
-    implementation 'org.opensearch.client:opensearch-rest-high-level-client:1.2.4'
+    implementation 'org.opensearch.client:opensearch-rest-high-level-client:1.3.2'
 
     // https://search.maven.org/artifact/com.google.code.gson/gson/2.9.0/jar
     implementation 'com.google.code.gson:gson:2.9.0'
