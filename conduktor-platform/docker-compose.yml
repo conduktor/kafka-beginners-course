@@ -58,7 +58,7 @@ services:
     volumes:
       - conduktor_data:/var/conduktor
       - type: bind
-        source: "./platform-config.yaml"
+        source: "./platform-config.yml"
         target: /opt/conduktor/platform-config.yaml
         read_only: true
     depends_on:
