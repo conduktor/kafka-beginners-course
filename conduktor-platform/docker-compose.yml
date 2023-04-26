@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3.9'
 
 services:
   zoo1:
@@ -69,8 +69,8 @@ services:
       KAFKA_BOOTSTRAP_SERVER: PLAINTEXT://kafka1:19092
       SR_SERVER: "http://kafka-schema-registry:8081"
       ORGANISATION_NAME: "default"
-      ADMIN_EMAIL: "admin@conduktor.io"
-      ADMIN_PSW: "admin"
+      CDK_ADMIN_EMAIL: "admin@conduktor.io"
+      CDK_ADMIN_PASSWORD: "admin"
 
 volumes:
   conduktor_data: {}

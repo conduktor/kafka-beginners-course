@@ -19,7 +19,7 @@ clusters:
 
 auth:
   demo-users:
-    - email: "${ADMIN_EMAIL}"
-      password: "${ADMIN_PSW}"
+    - email: "${CDK_ADMIN_EMAIL}"
+      password: "${CDK_ADMIN_PASSWORD}"
       groups:
         - ADMIN
