@@ -1,4 +1,4 @@
-package opensearch;
+package io.conduktor.demos.kafka.opensearch;
 
 import com.google.gson.JsonParser;
 import org.apache.http.HttpHost;
