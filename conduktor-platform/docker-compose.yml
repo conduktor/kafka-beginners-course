@@ -52,7 +52,7 @@ services:
       - kafka1
 
   conduktor-platform:
-    image: conduktor/conduktor-platform:latest
+    image: conduktor/conduktor-platform:1.17.3
     ports:
       - 8080:8080
     volumes:
