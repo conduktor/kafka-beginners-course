@@ -1,25 +1,34 @@
-organization:
-  name: "${ORGANISATION_NAME}"
+organization: # Name of your organization (mandatory)
+  name: "My Organization"
 
-clusters:
-  - id: default
+database: # Database credentials, must match what you have in the docker-compose (mandatory)
+  host: "postgresql"
+  port: 5432
+  name: "conduktor-console"
+  username: "conduktor"
+  password: "change_me"
+
+admin: # Define the local admin for the initial setup (mandatory)
+  email: admin@conduktor.io
+  password: admin
+
+auth: # Define a local user (optional)
+  local-users:
+    - email: user@conduktor.io
+      password: user
+
+monitoring: # Monitoring settings (optional)
+  cortex-url: http://conduktor-monitoring:9009/
+  alert-manager-url: http://conduktor-monitoring:9010/
+  callback-url: http://conduktor-console:8080/monitoring/api/
+  notifications-callback-url: http://localhost:8080
+
+clusters: # Cluster and schema registry configuration (optional)
+  - id: my-local-kafka-cluster
     name: My Local Kafka Cluster
-    color: "#0013E7"
-    ignoreUntrustedCertificate: false
-    bootstrapServers: "$KAFKA_BOOTSTRAP_SERVER"
-    properties:
+    bootstrapServers: "kafka:19092"
     schemaRegistry:
-      url: "$SR_SERVER"
-      ignoreUntrustedCertificate: false
-      properties:
-    labels: {}
+      url: "http://schema-registry:8081"
 #    kafkaConnects:
 #      - url: http://kafka-connect:8083
 #        name: full stack kafka connect
-
-auth:
-  demo-users:
-    - email: "${CDK_ADMIN_EMAIL}"
-      password: "${CDK_ADMIN_PASSWORD}"
-      groups:
-        - ADMIN
