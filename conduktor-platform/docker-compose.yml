@@ -71,7 +71,7 @@ services:
       - "8080:8080"
     volumes:
       - type: bind
-        source: "./platform-config.yaml"
+        source: "./platform-config.yml"
         target: /opt/conduktor/platform-config.yaml
         read_only: true
     environment:
