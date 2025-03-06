@@ -9,7 +9,6 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_SERVERS: zookeeper:2888:3888
-
   kafka:
     image: confluentinc/cp-kafka:7.8.0
     hostname: kafka
@@ -34,7 +33,6 @@ services:
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
     depends_on:
       - zookeeper
-
   schema-registry:
     image: confluentinc/cp-schema-registry:7.8.0
     hostname: schema-registry
@@ -48,7 +46,6 @@ services:
     depends_on:
       - zookeeper
       - kafka
-
   postgresql:
     image: postgres:14
     hostname: postgresql
@@ -58,9 +55,8 @@ services:
       POSTGRES_USER: "conduktor"
       POSTGRES_PASSWORD: "change_me"
       POSTGRES_HOST_AUTH_METHOD: "scram-sha-256"
-
   conduktor-console:
-    image: conduktor/conduktor-console:1.31.0
+    image: conduktor-console:TEST3
     hostname: conduktor-console
     container_name: conduktor-console
     depends_on:
@@ -74,10 +70,9 @@ services:
         read_only: true
     environment:
       CDK_IN_CONF_FILE: /opt/conduktor/platform-config.yaml
-
   conduktor-monitoring:
     hostname: conduktor-monitoring
     container_name: conduktor-monitoring
-    image: conduktor/conduktor-console-cortex:1.31.0
+    image: conduktor-console-cortex:TEST3
     environment:
       CDK_CONSOLE-URL: "http://conduktor-console:8080"
