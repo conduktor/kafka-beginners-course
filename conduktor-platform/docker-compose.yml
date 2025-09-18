@@ -56,7 +56,7 @@ services:
       POSTGRES_PASSWORD: "change_me"
       POSTGRES_HOST_AUTH_METHOD: "scram-sha-256"
   conduktor-console:
-    image: conduktor/conduktor-console:1.37.0
+    image: conduktor/conduktor-console:1.37.1
     hostname: conduktor-console
     container_name: conduktor-console
     depends_on:
@@ -73,6 +73,6 @@ services:
   conduktor-monitoring:
     hostname: conduktor-monitoring
     container_name: conduktor-monitoring
-    image: conduktor/conduktor-console-cortex:1.37.0
+    image: conduktor/conduktor-console-cortex:1.37.1
     environment:
       CDK_CONSOLE-URL: "http://conduktor-console:8080"
