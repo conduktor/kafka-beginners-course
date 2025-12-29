@@ -2,16 +2,18 @@
 
 This is a companion repository for the [Kafka for Beginners course](https://links.datacumulus.com/apache-kafka-coupon) by Conduktor
 
-![Conduktor](images/kafka-beginners.png)
-
 ## Content
+
 - Basics of Kafka Java Programming
 - Wikimedia Producer
 - OpenSearch Consumer
 - Kafka Streams Sample Application
 
-# By Conduktor
+## Going further
 
-[Conduktor](https://www.conduktor.io) is about making Kafka accessible to everyone. Check out our free Kafka learning website [Kafkademy](https://kafkademy.com/) and our Apache Kafka Desktop Client [Conduktor DevTools](https://conduktor.io/download)
+[Conduktor](https://www.conduktor.io) helps teams work with Kafka in a clear and practical way. You can keep learning with our free Kafka learning site [Kafkademy](https://kafkademy.com/) and try our free Apache Kafka Console (UI), easy to run with Docker: https://conduktor.io/get-started
 
-![Conduktor](https://www.conduktor.io/images/logo.svg)
+To learn even more, take a look at these curated lists:
+- Kafka Connect connectors: https://github.com/conduktor/awesome-kafka-connect
+- Apache Kafka resources, tools, libraries, and applications: https://github.com/conduktor/awesome-kafka
+
